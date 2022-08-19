@@ -2,50 +2,43 @@
 # coding=utf-8
 # @Time: 8/16/2022 11:50 PM
 # @Author: Chaoran Lu
-from webdriver_manager.chrome import ChromeDriverManager
+
+from time import sleep
 
 from selenium import webdriver
 
+from common.tools import get_project_path, sep
+
 
 class DriverConfig:
-    @staticmethod
-    def driver_config():
+    def driver_config(self):
         """
-        浏览器启动
+        浏览器驱动
         :return:
         """
         options = webdriver.ChromeOptions()
-        options.add_argument("disable-infobars")
-        # 设置窗口大小
+
+        # 设置窗口大小为1920X1080
         options.add_argument("window-size=1920,1080")
-        # 无头模式
-        # options.add_argument('--headless')
-        # 解决卡顿
-        options.add_argument("--disable-gpu")
-        options.add_argument("--no-sanbox")
-        options.add_argument('--disable-dev-shm-usage')
+        # 去除"chrome正受到自动化测试软件的控制"的提示
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
         # 解决selenium无法访问https的问题
         options.add_argument("--ignore-certificate-errors")
+        # 允许忽略localhost上的TLS/SSL的错误
         options.add_argument("--allow-insecure-localhost")
-        # 无痕模式
+        # 设置为无痕模式
         options.add_argument("--incognito")
-        # 去除"chrome正受到自动化测试软件的控制"
-        options.add_experimental_option(
-            "excludeSwitches", ["enable-automation"]
-        )
-        # 实例化浏览器驱动
+        # 设置为无头模式(在不打开浏览器或Linux无UI的情况下)
+        # options.add_argument("--headless")
+        # 解决卡顿
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
         driver = webdriver.Chrome(
-            ChromeDriverManager(url="http://npm.taobao.org/mirrors/chromedriver",
-                                latest_release_url="http://npm.taobao.org/mirrors/chromedriver/LATEST_RELEASE",
-                                cache_valid_range=365).install(),
-            options=options
-        )
-        # 隐性等待时间
-        driver.implicitly_wait(3)
+            executable_path=get_project_path() + sep(["driver_files", "chromedriver.exe"], add_sep_before=True),
+            options=options)
         # 删除所有cookies
         driver.delete_all_cookies()
+
         return driver
-
-
-if __name__ == "__main__":
-    DriverConfig().driver_config()
