@@ -3,9 +3,8 @@
 # @Time: 8/16/2022 11:50 PM
 # @Author: Chaoran Lu
 
-from time import sleep
-
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from common.tools import get_project_path, sep
 
@@ -35,9 +34,7 @@ class DriverConfig:
         options.add_argument("--disable-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        driver = webdriver.Chrome(
-            executable_path=get_project_path() + sep(["driver_files", "chromedriver.exe"], add_sep_before=True),
-            options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install())
         # 删除所有cookies
         driver.delete_all_cookies()
 
