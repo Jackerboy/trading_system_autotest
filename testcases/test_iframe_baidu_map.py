@@ -5,7 +5,6 @@
 
 from time import sleep
 
-from config.driver_config import DriverConfig
 from page.LeftMenuPage import LeftMenuPage
 from page.LoginPage import LoginPage
 from page.IframeBaiduMapPage import IframeBaiduMapPage
