@@ -7,9 +7,9 @@ import random
 import pytest
 
 class TestRerun:
-    @pytest.mark.flaky(reruns=50, reruns_delay=1)
+    @pytest.mark.flaky(reruns=20, reruns_delay=1)
     def test_rerun(self):
-        num = random.randint(1, 50)
+        num = random.randint(1, 20)
         print("num:", num)
         if num != 17:
             print("失败")

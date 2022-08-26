@@ -15,7 +15,7 @@ class TestIframeBaiduMap:
         LoginPage().login(driver, "william")
         sleep(3)
         LeftMenuPage().click_level_one_menu(driver, "iframe测试")
-        sleep(100)
+        sleep(10)
         IframeBaiduMapPage().switch_2_baidu_map_iframe(driver)
         IframeBaiduMapPage().get_baidu_map_search_button(driver)
         IframeBaiduMapPage().iframe_out(driver)

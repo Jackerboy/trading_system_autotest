@@ -2,3 +2,6 @@
 *.pyc
 labs
 img
+*.log
+*.html
+assets

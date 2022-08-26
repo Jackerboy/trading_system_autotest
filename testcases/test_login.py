@@ -7,6 +7,7 @@ from time import sleep
 
 from page.LoginPage import LoginPage
 
+
 class TestLogin:
 
     def test_login(self, driver):
